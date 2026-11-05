@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3f6f0" />
+    <meta
+      name="description"
+      content="Weekly retail sales forecast using Prophet and XGBoost."
+    />
+    <title>Northstar | Sales Outlook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script src="config.js"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Northstar home">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span
+          >NORTHSTAR<span class="brand-sub"> / SALES INTELLIGENCE</span></span
+        >
+      </a>
+      <div class="service-state">
+        <span id="service-dot" class="status-dot"></span
+        ><span id="service-label">Connecting to forecast service</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="controls" aria-label="Forecast controls">
+        <div class="eyebrow">Weekly outlook</div>
+        <h1>Sales, in the<br />weeks ahead.</h1>
+        <p class="lede">
+          A practical view of the next selling weeks, grounded in your
+          historical pattern.
+        </p>
+
+        <label for="category">Category</label>
+        <select id="category" disabled>
+          <option>Loading categories...</option>
+        </select>
+
+        <label for="model">Forecast model</label>
+        <select id="model">
+          <option value="best">Best on holdout</option>
+          <option value="Prophet">Prophet</option>
+          <option value="XGBoost">XGBoost</option>
+        </select>
+
+        <div class="range-heading">
+          <label for="horizon">Forecast horizon</label
+          ><output id="horizon-value" for="horizon">12 weeks</output>
+        </div>
+        <input id="horizon" type="range" min="4" max="26" value="12" step="1" />
+        <div class="range-bounds">
+          <span>4 weeks</span><span>26 weeks</span>
+        </div>
+
+        <div class="control-foot">
+          <div class="eyebrow">Holdout window</div>
+          <p>
+            Last <strong id="test-weeks">12</strong> weeks, kept out of
+            training.
+          </p>
+          <div class="eyebrow source-label">Source cadence</div>
+          <p>Weekly sales aggregated through Sunday.</p>
+        </div>
+      </aside>
+
+      <section class="workspace" aria-label="Forecast results">
+        <div class="workspace-head">
+          <div>
+            <div class="eyebrow">Retail intelligence / forecast desk</div>
+            <h2 id="chart-title">Overall sales</h2>
+          </div>
+          <span id="model-badge" class="model-badge">BEST MODEL</span>
+        </div>
+
+        <section class="metric-grid" aria-label="Key forecast metrics">
+          <article class="metric">
+            <div class="metric-label">Next 4 weeks</div>
+            <div id="next-four" class="metric-value">--</div>
+            <div class="metric-note">Projected sales</div>
+          </article>
+          <article class="metric">
+            <div class="metric-label">Holdout MAE</div>
+            <div id="mae" class="metric-value">--</div>
+            <div id="mae-note" class="metric-note">Mean absolute error</div>
+          </article>
+          <article class="metric">
+            <div class="metric-label">Holdout RMSE</div>
+            <div id="rmse" class="metric-value">--</div>
+            <div class="metric-note">Root mean squared error</div>
+          </article>
+          <article class="metric metric-accent">
+            <div class="metric-label">Compared with naive</div>
+            <div id="vs-naive" class="metric-value">--</div>
+            <div class="metric-note">MAE improvement</div>
+          </article>
+        </section>
+
+        <div class="section-heading">
+          <h3>Weekly sales trajectory</h3>
+          <span id="period-label">History + 12-week outlook</span>
+        </div>
+        <div
+          id="forecast-chart"
+          role="img"
+          aria-label="Interactive weekly sales history and forecast chart"
+        ></div>
+
+        <div class="section-heading comparison-heading">
+          <h3>Model comparison</h3>
+          <span>Chronological holdout</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>MAE</th>
+                <th>RMSE</th>
+                <th>Readout</th>
+              </tr>
+            </thead>
+            <tbody id="comparison-body">
+              <tr>
+                <td colspan="4">Loading model metrics...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="reading-note">
+          <span class="note-mark" aria-hidden="true"></span
+          ><span
+            ><strong>How to read this:</strong> The forecast starts after the
+            dashed divider. The shaded band is Prophet's estimated interval, not
+            a guarantee. Lower MAE and RMSE indicate a closer holdout fit. The
+            naive baseline repeats the same week from the prior year.</span
+          >
+        </p>
+        <footer>
+          Historical sample: 2014-2017. Illustrative baseline, not adjusted for
+          promotions, holidays, or structural changes.
+        </footer>
+      </section>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

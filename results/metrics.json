@@ -1,0 +1,112 @@
+{
+  "source": "Kaggle Superstore Dataset (Tableau sample; educational use, see README)",
+  "test_weeks": 12,
+  "max_horizon_weeks": 26,
+  "selection_note": "Best configurations are selected by holdout MAE; treat the comparison as exploratory.",
+  "categories": {
+    "All": {
+      "Naive": {
+        "mae": 8375.353266666665,
+        "rmse": 10884.201810226537
+      },
+      "Prophet": {
+        "mae": 7742.442046164518,
+        "rmse": 9227.776328701675,
+        "config": {
+          "changepoint_prior_scale": 0.15
+        },
+        "run_id": "610f5a3572784bf494bb17398e305d0b"
+      },
+      "XGBoost": {
+        "mae": 6312.814317838541,
+        "rmse": 7911.752939410052,
+        "config": {
+          "n_estimators": 160,
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "subsample": 0.9
+        },
+        "run_id": "eeed6555a25f48288ade8b5659c1670c"
+      },
+      "best_model": "XGBoost"
+    },
+    "Furniture": {
+      "Naive": {
+        "mae": 3279.6239333333338,
+        "rmse": 4165.921656886443
+      },
+      "Prophet": {
+        "mae": 2265.0738365454763,
+        "rmse": 3299.7750172226715,
+        "config": {
+          "changepoint_prior_scale": 0.15
+        },
+        "run_id": "de38c7515efd48fb80bae4bab95a69ea"
+      },
+      "XGBoost": {
+        "mae": 2252.7002930989584,
+        "rmse": 3252.101911078007,
+        "config": {
+          "n_estimators": 160,
+          "max_depth": 2,
+          "learning_rate": 0.05,
+          "subsample": 0.9
+        },
+        "run_id": "178f388f78ad4dafba0a39d2d3b8dcb1"
+      },
+      "best_model": "XGBoost"
+    },
+    "Office Supplies": {
+      "Naive": {
+        "mae": 4029.3697499999994,
+        "rmse": 5417.047149831239
+      },
+      "Prophet": {
+        "mae": 2278.856515188316,
+        "rmse": 2751.099882765255,
+        "config": {
+          "changepoint_prior_scale": 0.15
+        },
+        "run_id": "26f103f060ab483da69f1d3e9e885b2c"
+      },
+      "XGBoost": {
+        "mae": 2234.783651692708,
+        "rmse": 2883.1320674836834,
+        "config": {
+          "n_estimators": 160,
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "subsample": 0.9
+        },
+        "run_id": "b464519a18f848c8abf3adc24f8a8e22"
+      },
+      "best_model": "XGBoost"
+    },
+    "Technology": {
+      "Naive": {
+        "mae": 4534.8237500000005,
+        "rmse": 7177.866602878643
+      },
+      "Prophet": {
+        "mae": 4414.218385814093,
+        "rmse": 5939.69266131074,
+        "config": {
+          "changepoint_prior_scale": 0.15
+        },
+        "run_id": "80b477d0583641a5a3ba6ea355b56fca"
+      },
+      "XGBoost": {
+        "mae": 4883.570925130209,
+        "rmse": 6035.008917021118,
+        "config": {
+          "n_estimators": 160,
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "subsample": 0.9
+        },
+        "run_id": "2fe230f98b484c4ebd1da71b51e131e1"
+      },
+      "best_model": "Prophet"
+    }
+  }
+}

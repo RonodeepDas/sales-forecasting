@@ -1,0 +1,5 @@
+-r requirements.txt
+-r requirements-api.txt
+mlflow==2.12.1
+httpx==0.28.1
+pytest==8.2.2
