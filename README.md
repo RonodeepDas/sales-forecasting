@@ -2,7 +2,7 @@
 
 Weekly retail sales forecasting with Prophet and an XGBoost lag-feature baseline, tracked in MLflow, displayed on GitHub Pages, and served by a read-only FastAPI service on Render. Streamlit remains available as a local interactive app.
 
-**Frontend:** Not published yet. **Forecast API:** Not deployed yet. GitHub and Render authentication is required to publish these services.
+**Live frontend:** [Northstar Sales Outlook](https://ronodeepdas.github.io/sales-forecasting/). **Forecast API:** [northstar-sales-api.onrender.com](https://northstar-sales-api.onrender.com) ([interactive API docs](https://northstar-sales-api.onrender.com/docs)).
 
 ## Results
 
@@ -59,10 +59,9 @@ Open the notebook at `notebooks/forecasting.ipynb` to reproduce the exploration 
 
 ## Deploy
 
-1. Push this repository to a public GitHub repository and enable GitHub Pages with **GitHub Actions** as the source. The workflow in `.github/workflows/pages.yml` publishes `frontend/` on every change to that folder. The frontend URL will be `https://<owner>.github.io/<repository>/`.
-2. In Render, create a **Blueprint** from the same GitHub repository. `render.yaml` creates the free `northstar-sales-api` service, installs only `requirements-api.txt`, and checks `/api/health`. Render uses Python 3.11 from `.python-version`.
-3. If Render assigns a different service URL, update `frontend/config.js` to that API origin and push the change. The static frontend then refreshes automatically through GitHub Actions.
-4. Keep `results/metrics.json`, `results/forecasts.csv`, and `data/superstore.csv` in the repository. Render serves prepared results and does not train models during startup.
+1. The public GitHub repository is `RonodeepDas/sales-forecasting`; GitHub Pages publishes `frontend/` from **GitHub Actions** using `.github/workflows/pages.yml`.
+2. The Render Blueprint in `render.yaml` deploys the free `northstar-sales-api` service, installs only `requirements-api.txt`, and checks `/api/health`. Render uses Python 3.11 from `.python-version`.
+3. Keep `results/metrics.json`, `results/forecasts.csv`, and `data/superstore.csv` in the repository. Render serves prepared results and does not train models during startup.
 
 Render's free service may sleep while idle; its first request can take longer while it wakes. The frontend reports service status and recovers when the API responds. The API only exposes read-only public forecast data. This small historical sample has no promotion, holiday, or future price signals, so treat outputs as a baseline rather than operational guidance.
 
